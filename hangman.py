@@ -127,6 +127,46 @@ def hangman(secret_word):
     
     Follows the other limitations detailed in the problem write-up.
     '''
+    letters_guessed = []
+    guesses_remaining = 6
+    
+    print("Welcome to Hangman!")
+    print("I am thinking of a word that is", len(secret_word), "letters long.")
+ 
+    while guesses_remaining > 0 and not is_word_guessed(secret_word, letters_guessed):
+        print("-----------------------")
+        print("You have", guesses_remaining, "guesses left")
+        print("Available letters:", get_available_letters(letters_guessed))
+    
+        guess = input("Please guess a letter: ")
+        
+        guesses_remaining -= 1
+        guess = str.lower(guess)
+            
+       if guess in letters_guessed:
+                print("Oops! You've already guessed that letter.")
+                guesses_remaining -= 1
+            else:
+                letters_guessed.append(guess)
+                if guess in secret_word:
+                    message = "Good guess:"
+                else:
+                    if guess in ('a','e','i','o','u'):
+                        guesses_remaining -= 2
+                    else:
+                        guesses_remaining -= 1
+                        print("Oops! That letter is not in my word:" )
+                     
+        print( get_guessed_word(secret_word, letters_guessed))
+    
+    print("-" * 13)
+    if is_word_guessed(secret_word, letters_guessed):
+        print("Congratulations, you won!")
+        total_score = guesses_remaining * get_unique_letters(secret_word)
+        print("Your total score for this game is:", total_score)
+    else:
+        print("Sorry, you ran out of guesses. The word was else.")
+
     # FILL IN YOUR CODE HERE AND DELETE "pass"
     pass
 
