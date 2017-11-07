@@ -129,6 +129,7 @@ def hangman(secret_word):
     '''
     letters_guessed = []
     guesses_remaining = 6
+    warnings_remaining = 3
     
     print("Welcome to Hangman!")
     print("I am thinking of a word that is", len(secret_word), "letters long.")
@@ -137,19 +138,29 @@ def hangman(secret_word):
         print("-----------------------")
         print("You have", guesses_remaining, "guesses left")
         print("Available letters:", get_available_letters(letters_guessed))
-    
+        print("You have", warnings_remaining, "warnings left.")
+
         guess = input("Please guess a letter: ")
         
-        guesses_remaining -= 1
-        guess = str.lower(guess)
+        if not str.isalpha(guess):
+            message = "Oops! That is not a valid letter."
+            if warnings_remaining > 0:
+                warnings_remaining -= 1
+                message = message + " " + "You have " + str(warnings_remaining) + " warnings left:"
+            else:
+                guesses_remaining -= 1
+                message = message + " " + "You have no warnings left so you lose one guess:"
+        else:            
+            guesses_remaining -= 1
+            guess = str.lower(guess)
             
-       if guess in letters_guessed:
+            if guess in letters_guessed:
                 print("Oops! You've already guessed that letter.")
                 guesses_remaining -= 1
             else:
                 letters_guessed.append(guess)
                 if guess in secret_word:
-                    message = "Good guess:"
+                    print("Good guess:")
                 else:
                     if guess in ('a','e','i','o','u'):
                         guesses_remaining -= 2
