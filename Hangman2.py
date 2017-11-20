@@ -13,7 +13,7 @@ Created on Tue Nov 14 23:18:56 2017
 import random
 import string
 
-WORDLIST_FILENAME = "words.txt"
+WORDLIST_FILENAME = "words2.txt"
 
 
 def load_words():
@@ -41,8 +41,8 @@ def choose_word(wordlist):
     
     Returns a word from wordlist at random
     """
-    return random.choice(wordlist)
-
+    return random.choice(wordlist).lower()
+    
 # end of helper code
 
 # -----------------------------------
@@ -133,9 +133,9 @@ def hangman(secret_word):
     
     * The user should receive feedback immediately after each guess 
       about whether their guess appears in the computer's word.
-
     * After each guess, you should display to the user the 
       partially guessed word so far.
+
     
     Follows the other limitations detailed in the problem write-up.
     '''
@@ -194,7 +194,7 @@ def hangman(secret_word):
         total_score = guesses_remaining * get_unique_letters(secret_word)
         print("Your total score for this game is:", total_score)
     else:
-        print("Sorry, you ran out of guesses. The word was else.")
+        print("Sorry, you ran out of guesses. The word was ", secret_word)
 # When you've completed your hangman function, scroll down to the bottom
 # of the file and uncomment the first two lines to test
 #(hint: you might want to pick your own
@@ -362,8 +362,8 @@ if __name__ == "__main__":
     # To test part 2, comment out the pass line above and
     # uncomment the following two lines.
     
-#    secret_word = choose_word(wordlist)
-#    hangman(secret_word)
+    #secret_word = choose_word(wordlist)
+    #hangman(secret_word)
 
 ###############
     
